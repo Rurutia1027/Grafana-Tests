@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    /* =====================
+     * Execution Environment
+     * ===================== */
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+
+    /* =====================
+     * Type Definitions
+     * ===================== */
+    "types": ["node", "@playwright/test"],
+
+    /* =====================
+     * Project Structure
+     * ===================== */
+    "rootDir": ".",
+    "outDir": "dist",
+
+    /* =====================
+     * TypeScript Behavior
+     * ===================== */
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+
+    /* =====================
+     * Source Maps & Output
+     * ===================== */
+    "sourceMap": true,
+    "declaration": false,
+
+    /* =====================
+     * Quality of Life
+     * ===================== */
+    "skipLibCheck": true
+  },
+  "include": ["src", "playwright.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}
