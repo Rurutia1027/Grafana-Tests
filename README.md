@@ -1,4 +1,4 @@
-# Grafana E2E Testing Framework 
+# Grafana-Playwright-Test
 
 ## Purpose and Motivation 
 This repository is **not** a fork of Grafana. Instead, it is a **learning-driven reimplementation** of Grafana's production-grade testing framework, built on its **open-source codebase**.
