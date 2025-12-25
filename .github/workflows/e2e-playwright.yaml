@@ -2,10 +2,13 @@ name: Grafana Playwright E2E
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
   workflow_dispatch:
+  schedule:
+    # nightly run
+    - cron: '0 2 * * *'
 
 permissions:
   contents: read
@@ -20,32 +23,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js (Yarn)
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: yarn
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: yarn playwright install --with-deps
 
-      - name: Start Grafana (Docker)
+      - name: Start Grafana (Docker Compose)
         run: docker compose up -d
 
       - name: Wait for Grafana to be ready
         run: |
-          npx wait-on http://localhost:3000 --timeout 120000
+          echo "Waiting for Grafana on http://localhost:3000"
+          for i in {1..30}; do
+            curl -sf http://localhost:3000 && exit 0
+            sleep 5
+          done
+          echo "Grafana did not become ready in time"
+          docker compose ps
+          exit 1
 
-      - name: Run Playwright E2E tests
-        run: |
-          npx playwright test
+      - name: Run Playwright tests
         env:
           GRAFANA_URL: http://localhost:3000
           GRAFANA_ADMIN_USER: admin
           GRAFANA_ADMIN_PASSWORD: admin
+        run: yarn playwright test
 
       - name: Upload Playwright HTML report
         if: always()
@@ -56,7 +65,8 @@ jobs:
   deploy:
     needs: e2e
     runs-on: ubuntu-latest
+    if: always()
 
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy report to GitHub Pages
         uses: actions/deploy-pages@v4
