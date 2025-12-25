@@ -17,17 +17,10 @@ test.describe('Grafana Plugin E2E Basic Tests', () => {
 
     test('Grafana 12.x login with debug', async ({ page }) => { 
       const GRAFANA_URL = process.env.GRAFANA_URL ?? 'http://localhost:3000';
-      const ADMIN_USER = process.env.GRAFANA_ADMIN_USER ?? 'admin';
-      const ADMIN_PASS = process.env.GRAFANA_ADMIN_PASSWORD ?? 'admin';
 
       await page.goto(GRAFANA_URL); 
 
-
-      // login page 
-      await page.fill('input[name="user"]', ADMIN_USER); 
-      await page.fill('input[name=password]', ADMIN_PASS); 
-      await page.click('button[type="submit"]');
-
+      
       await page.waitForTimeout(3000);
       
       await page.screenshot({ path: 'debug-login-1.png', fullPage: true });
