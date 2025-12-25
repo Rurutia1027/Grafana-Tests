@@ -18,7 +18,16 @@
     tslib "2.8.1"
     typescript "5.9.2"
 
-"@grafana/plugin-e2e@^3.1.0":
+"@grafana/e2e-selectors@3.1.0":
+  version "12.4.0-20333883740"
+  resolved "https://registry.npmmirror.com/@grafana/e2e-selectors/-/e2e-selectors-12.4.0-20333883740.tgz#7563064bde965083a2db6fcc35a6c0591cdaa653"
+  integrity sha512-q02NKnKQF50w+KHK0WhaiRCUza8NU5qMdJ4MtE+IgahMjlH3bL4GVRBo4nLgELDWtJaMiJo/YXMOR8dwvbw1Pw==
+  dependencies:
+    semver "^7.7.0"
+    tslib "2.8.1"
+    typescript "5.9.2"
+
+"@grafana/plugin-e2e@3.1.0":
   version "3.1.0"
   resolved "https://registry.npmmirror.com/@grafana/plugin-e2e/-/plugin-e2e-3.1.0.tgz#58f75cfe07b4b78d8d08dd0f7b6d65349a70d80e"
   integrity sha512-TE/KlFyemE+BU/80ovGmiXzkRbQER7wLs09O0lMQODi+wVdPaYOImKDTHIhiwutg9l6pZv0sV5PjPfLv182Jjw==
