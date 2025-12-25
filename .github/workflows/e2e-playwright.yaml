@@ -1,62 +1,65 @@
-name: Grafana Playwright E2E
+name: Playwright E2E
+
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-  schedule:
-    # Daily run at 02:00 UTC
-    - cron: '0 2 * * *'
+push:
+branches: [ main ]
+pull_request:
+
+
+permissions:
+contents: read
+pages: write
+id-token: write
+
 
 jobs:
-  e2e:
-    runs-on: ubuntu-latest
+e2e:
+runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+steps:
+- name: Checkout
+uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: yarn
 
-      - name: Install dependencies
-        run: |
-          yarn install --frozen-lockfile
-          npx playwright install --with-deps
+- name: Setup Node
+uses: actions/setup-node@v4
+with:
+node-version: 20
 
-      - name: Start Grafana via Docker Compose
-        run: docker compose up -d
 
-      - name: Wait for Grafana
-        run: |
-          for i in {1..30}; do
-            if curl -s http://localhost:3000 > /dev/null; then
-              echo "Grafana is up"
-              exit 0
-            fi
-            echo "Waiting for Grafana..."
-            sleep 5
-          done
-          exit 1
+- name: Install dependencies
+run: yarn install --frozen-lockfile
 
-      - name: Run Playwright tests
-        run: npx playwright test
-        env:
-          GRAFANA_URL: http://localhost:3000
-          GRAFANA_ADMIN_USER: admin
-          GRAFANA_ADMIN_PASSWORD: admin
 
-      - name: Upload Playwright Report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: playwright-report
+- name: Start Grafana
+run: docker-compose up -d
+
+
+- name: Wait for Grafana
+run: npx wait-on http://localhost:3000
+
+
+- name: Run Playwright tests
+run: yarn playwright test
+
+
+- name: Upload Playwright report
+uses: actions/upload-pages-artifact@v3
+with:
+path: playwright-report
+
+
+deploy:
+needs: e2e
+runs-on: ubuntu-latest
+environment:
+name: github-pages
+url: ${{ steps.deployment.outputs.page_url }}
+
+
+steps:
+- name: Deploy to GitHub Pages
+id: deployment
+uses: actions/deploy-pages@v4
