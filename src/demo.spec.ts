@@ -22,6 +22,7 @@ test.describe('Grafana Plugin E2E Basic Tests', () => {
 
       await page.goto(GRAFANA_URL); 
 
+      
       // // login page 
       // await page.fill('input[name="user"]', ADMIN_USER); 
       // await page.fill('input[name=password]', ADMIN_PASS); 
