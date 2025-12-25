@@ -58,6 +58,7 @@ jobs:
   Deploy-Grafana-E2E-Test-Reports-Pages:
     needs: Grafana-E2E-Playwright
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'  
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
