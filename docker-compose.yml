@@ -1,14 +1,15 @@
 services:
   grafana:
     image: grafana/grafana:12.3
-    container_name: grafana
-    ports:
-      - "3000:3000"
+    container_name: grafana-test
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-extensionstest-app,grafana-e2etest-datasource,grafana-e2etest-panel,alertlist-panel
+    ports:
+      - "3000:3000"
     volumes:
-      - grafana-data:/var/lib/grafana
-
-volumes:
-  grafana-data:
+      - ./conf/custom.ini:/etc/grafana/grafana.ini:ro
+      - ./plugins:/var/lib/grafana/plugins
+    restart: unless-stopped

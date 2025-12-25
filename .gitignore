@@ -47,3 +47,5 @@ playwright/test-results/
 playwright/.auth/
 playwright/**/*.png
 playwright/**/*.zip
+
+plugins/*
