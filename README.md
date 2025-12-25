@@ -1,81 +1,143 @@
-# Grafana-Playwright-Test
+# Grafana Plugin E2E – Playwright Framework
 
-## Purpose and Motivation 
-This repository is **not** a fork of Grafana. Instead, it is a **learning-driven reimplementation** of Grafana's production-grade testing framework, built on its **open-source codebase**.
+This repository contains a **production-ready Playwright-based E2E framework** for Grafana. It focuses on **front-end and back-end integration testing** using Playwright’s native BDD-style syntax, providing robust, maintainable, and version-forward-compatible test coverage.
 
-The primary goals are: 
-- To deeply understand how **Grafana**, a mature enterprised-level product, structures and executes its **test strategy**.
-- To study **real-world CI/CD practices**, environment bootstraping, and test orchestration used by Grafana.
-- To re-implement and adapt Grafana's test cases into a **standalone**, **reusable testing framework**.
-- To provide **high-quality reference** material for designing E2E, integration, and system tests for cloud-native platforms.
+---
 
-This repository should be treated as **educational and experimental**, with strong emphasis on architecture, patterns, and practices rather than feature parity.
+## Features
 
+* **Playwright-first testing**: Fully utilizes Playwright’s `test`, `expect`, and `Project` abstractions.
+* **BDD-style tests without Cucumber**: Tests use Playwright semantics to define behavior-driven flows.
+* **Production-level Grafana coverage**: Includes core plugin tests, dashboards, data sources, and integrations.
+* **Modular project configuration**: Each project can have isolated contexts, dependencies, and `storageState`.
+* **Smoke and demo tests**: Quick checks for critical flows.
+* **Forward-compatible**: Avoids tight coupling to Grafana DOM selectors.
+* **CI/CD-ready**: Supports automated daily or per-commit test runs with HTML reports.
 
-## High-Level Strategy 
-The workflow of this repository follows four major phases:
-- Study Grafana's Open-Source Test Code
-- Extract and Copy Test Case Sources into this repository
-- Rewrite and refactor the tests to:
-  > Remove Grafana-internal coupling
-  > Improve readability and modularity
-  > Align with generic enterprise testing practices
-- Rebuild the Supporting Infrastructure:
-  > CI scripts
-  > Environment provisioning
-  > E2E context bootstraping
+---
 
-The result is a **clean**, **production-inspired test framework** that mirrors how Grafana validates its product in real environments. 
+## Repository Structure
 
+```
+├── README.md
+├── debug-login-1.png
+├── debug-login-2.png
+├── docker-compose.yml
+├── docs
+├── package.json
+├── playwright
+├── playwright-report
+│   ├── data
+│   ├── index.html
+│   └── trace
+├── playwright.config.ts
+├── plugin-e2e-api-tests
+├── src
+│   ├── azuremonitor
+│   ├── canvas
+│   ├── cloud-plugins-suite
+│   ├── cloudmonitoring
+│   ├── cloudwatch
+│   ├── dashboard-cujs
+│   ├── dashboard-new-layouts
+│   ├── dashboards-suite
+│   ├── demo.spec.ts
+│   ├── elasticsearch
+│   ├── grafana-postgresql-datasource
+│   ├── graphite
+│   ├── influxdb
+│   ├── jaeger
+│   ├── loki
+│   ├── mssql
+│   ├── mysql
+│   ├── opentsdb
+│   ├── panels-suite
+│   ├── plugin-e2e
+│   ├── plugin-e2e-api-tests
+│   ├── smoke-tests-suite
+│   ├── test-plugins
+│   ├── unauthenticated
+│   ├── various-suite
+│   └── zipkin
+└── test-results
+```
 
-## Scope of Testing
-This repository focuses primarily on **End-to-End(E2E)** and **Integration-level** testing, with selective coverage of:
-- UI behavior (dashboards, panels, navigation)
-- Authentication and authorization flows
-- API-driven workflows
-- Configuration and provisioning validation
-- Upgrade and migration scenarios
+> Note: `node_modules` is excluded from the structure above.
 
-Unit tests are **explicitly out of scope** unless they are required to support E2E flows.
+---
 
-## Repository Structure 
+## Getting Started
 
-//  TODO
+### Install dependencies
 
-## Copying and Rewriting Grafana Test Sources 
-### Source of Truth
-Grafana's official open-source repository:
-- UI tests
-- Backend integration tests
-- CI workflows
+```bash
+yarn install
+npx playwright install
+```
 
-These serve as the **reference implementation**, not a dependency.
+### Run Demo Test
 
+```bash
+npx playwright test src/demo.spec.ts --reporter=html
+```
 
-### Rewrite Principles
-All copied test cases are:
-- **Manualy rewritten**, not bindly duplicated
-- Decoupled from Grafana-internal build tools
-- Refactored to:
-  > Improve naming clarity
-  > Reduce implicit global state
-  > Make environment assumptions explicit
+* Generates an HTML report under `playwright-report/`.
+* Validates that Playwright configuration works and the demo test can run.
 
-The intent is to **preserve behavior**, not implementation details.
+### Run All Tests
 
-## Intended Audience
+```bash
+npx playwright test
+```
 
-This repository is designed for:
+---
 
-- Engineers studying enterprise‑level test frameworks
-- Platform and SRE engineers validating observability stacks
-- Developers designing E2E strategies for cloud‑native products
+## Folder Conventions
 
-It is not intended as a drop‑in Grafana testing solution.
+* **src/** – All test projects and demo tests.
+* **plugin-e2e-api-tests/** – Plugin API E2E test templates.
+* **playwright-report/** – Generated reports and traces.
+* **test-results/** – Output of individual test runs.
+* **docker-compose.yml** – Starts Grafana server and dependencies for E2E tests.
+* **playwright.config.ts** – Central Playwright configuration including projects, dependencies, and auth handling.
 
+---
 
-## Next Steps
-- Complete analysis of Grafana’s E2E test suites
-- Implement the first rewritten test flows
-- Stabilize CI execution
-- Expand documentation with concrete examples
+## CI/CD Integration (Placeholder)
+
+* Tests can be triggered on **GitHub Actions** or any CI pipeline.
+* Example workflow:
+
+```yaml
+name: Playwright E2E
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *' # daily run at midnight
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+      - run: yarn install
+      - run: npx playwright install
+      - run: docker compose up -d
+      - run: npx playwright test --reporter=html
+      - run: npx playwright show-report
+```
+
+This section can be expanded for full CI/CD automation, artifacts, and notifications.
+
+---
+
+## Notes
+
+* Tests rely on **isolated Playwright projects** for each user/role and plugin scenario.
+* Auth `storageState` files are used to maintain session contexts across tests.
+* Keep empty directories with `.keep` files to maintain repo structure for future tests.
