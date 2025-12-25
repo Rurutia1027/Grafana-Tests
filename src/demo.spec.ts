@@ -22,28 +22,28 @@ test.describe('Grafana Plugin E2E Basic Tests', () => {
 
       await page.goto(GRAFANA_URL); 
 
-      
-      // // login page 
-      // await page.fill('input[name="user"]', ADMIN_USER); 
-      // await page.fill('input[name=password]', ADMIN_PASS); 
-      // await page.click('button[type="submit"]');
 
-      // await page.waitForTimeout(3000);
-      
-      // await page.screenshot({ path: 'debug-login-1.png', fullPage: true });
-      
-      // const skipButton = page.locator('button[aria-label="Skip change password button"]');
+      // login page 
+      await page.fill('input[name="user"]', ADMIN_USER); 
+      await page.fill('input[name=password]', ADMIN_PASS); 
+      await page.click('button[type="submit"]');
 
-      // if (await skipButton.count() > 0) {
-      //   await skipButton.waitFor({ state: 'visible', timeout: 10000 });
-      //   await skipButton.click();
-      // }
+      await page.waitForTimeout(3000);
+      
+      await page.screenshot({ path: 'debug-login-1.png', fullPage: true });
+      
+      const skipButton = page.locator('button[aria-label="Skip change password button"]');
 
-      // const toggleMenuButton = page.locator('button[aria-label="Toggle menu"]');
-      // if (await toggleMenuButton.count() > 0) {
-      //     console.log('Selector exists');
-      // } else {
-      //     console.log('Selector NOT found');
-      // }
+      if (await skipButton.count() > 0) {
+        await skipButton.waitFor({ state: 'visible', timeout: 10000 });
+        await skipButton.click();
+      }
+
+      const toggleMenuButton = page.locator('button[aria-label="Toggle menu"]');
+      if (await toggleMenuButton.count() > 0) {
+          console.log('Selector exists');
+      } else {
+          console.log('Selector NOT found');
+      }
     })
 });
