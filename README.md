@@ -20,18 +20,11 @@ This repository contains a **production-ready Playwright-based E2E framework** f
 
 ```
 ├── README.md
-├── debug-login-1.png
-├── debug-login-2.png
 ├── docker-compose.yml
 ├── docs
 ├── package.json
-├── playwright
 ├── playwright-report
-│   ├── data
-│   ├── index.html
-│   └── trace
 ├── playwright.config.ts
-├── plugin-e2e-api-tests
 ├── src
 │   ├── azuremonitor
 │   ├── canvas
