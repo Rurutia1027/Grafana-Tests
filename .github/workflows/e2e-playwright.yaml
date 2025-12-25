@@ -3,12 +3,7 @@ name: Grafana Playwright E2E
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
-  schedule:
-    # nightly run
-    - cron: '0 2 * * *'
 
 permissions:
   contents: read
@@ -20,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js (Yarn)
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -33,31 +28,27 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Install Playwright browsers
-        run: yarn playwright install --with-deps
+        run: npx playwright install --with-deps
 
-      - name: Start Grafana (Docker Compose)
+      - name: Start Grafana (Docker)
         run: docker compose up -d
 
-      - name: Wait for Grafana to be ready
+      - name: Wait for Grafana
         run: |
-          echo "Waiting for Grafana on http://localhost:3000"
           for i in {1..30}; do
-            curl -sf http://localhost:3000 && exit 0
-            sleep 5
+            curl -s http://localhost:3000 && exit 0
+            sleep 2
           done
-          echo "Grafana did not become ready in time"
-          docker compose ps
-          exit 1
+          echo "Grafana not ready" && exit 1
 
       - name: Run Playwright tests
         env:
           GRAFANA_URL: http://localhost:3000
           GRAFANA_ADMIN_USER: admin
           GRAFANA_ADMIN_PASSWORD: admin
-        run: yarn playwright test
+        run: npx playwright test
 
       - name: Upload Playwright HTML report
-        if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           path: playwright-report
@@ -65,8 +56,11 @@ jobs:
   deploy:
     needs: e2e
     runs-on: ubuntu-latest
-    if: always()
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy report to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
