@@ -3,8 +3,6 @@ name: Grafana Playwright E2E
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -58,7 +56,6 @@ jobs:
   Deploy-Grafana-E2E-Test-Reports-Pages:
     needs: Grafana-E2E-Playwright
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'  
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
