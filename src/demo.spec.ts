@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import * as grafanaE2E from '@grafana/plugin-e2e';
 
+
+// Demo oriented E2E test cases, just for demo 
 console.log('Grafana E2E module loaded:', grafanaE2E);
 
 const BASE_URL = process.env.GRAFANA_URL || 'http://localhost:3000';
@@ -20,7 +22,7 @@ test.describe('Grafana Plugin E2E Basic Tests', () => {
 
       await page.goto(GRAFANA_URL); 
 
-      
+
       await page.waitForTimeout(3000);
       
       await page.screenshot({ path: 'debug-login-1.png', fullPage: true });

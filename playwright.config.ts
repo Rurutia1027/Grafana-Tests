@@ -47,16 +47,6 @@ export const baseConfig: PlaywrightTestConfig<PluginOptions, {}> = {
 
 export default defineConfig<PluginOptions>({
   ...baseConfig, 
-  ...(!process.env.GRAFANA_URL && {
-    webServer: {
-      command: 'docker compose up -d',
-      url: DEFAULT_URL,       // Playwright will wait until this URL responds
-      timeout: 120_000,       // optional, increase wait time if needed
-      reuseExistingServer: true, // don't restart if container is already running
-      stdout: 'pipe',
-      stderr: 'pipe',
-    }, 
-  }), 
   projects: [
      // Login to Grafana with admin user and storethe cookie on disk for use in other case 
     {
