@@ -42,3 +42,8 @@ playwright.config.js.map
 # =====================
 coverage/
 *.log
+
+playwright/test-results/
+playwright/.auth/
+playwright/**/*.png
+playwright/**/*.zip

@@ -33,8 +33,6 @@ test.describe('Grafana Plugin E2E Basic Tests', () => {
       
       const skipButton = page.locator('button[aria-label="Skip change password button"]');
 
-     
-
       if (await skipButton.count() > 0) {
         await skipButton.waitFor({ state: 'visible', timeout: 10000 });
         await skipButton.click();
