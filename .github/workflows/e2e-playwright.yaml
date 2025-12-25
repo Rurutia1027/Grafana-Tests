@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 jobs:
-  e2e:
+  Grafana-E2E-Playwright:
     runs-on: ubuntu-latest
 
     steps:
@@ -55,8 +55,8 @@ jobs:
         with:
           path: playwright-report
 
-  deploy:
-    needs: e2e
+  Deploy-Grafana-E2E-Test-Reports-Pages:
+    needs: Grafana-E2E-Playwright
     runs-on: ubuntu-latest
     environment:
       name: github-pages
