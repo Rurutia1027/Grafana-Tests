@@ -1,8 +1,19 @@
-# Grafana Plugin E2E – Playwright Framework | [![Grafana Playwright E2E](https://github.com/Rurutia1027/Grafana-Playwright-Test/actions/workflows/e2e-playwright.yaml/badge.svg)](https://github.com/Rurutia1027/Grafana-Playwright-Test/actions/workflows/e2e-playwright.yaml)
+# Grafana Plugin E2E – Playwright Framework | [![Grafana Playwright E2E](https://github.com/Rurutia1027/Grafana-Playwright-Test/actions/workflows/e2e-playwright-build.yaml/badge.svg)](https://github.com/Rurutia1027/Grafana-Playwright-Test/actions/workflows/e2e-playwright-build.yaml)
 
 [**Test Reports**](https://rurutia1027.github.io/Grafana-Playwright-Test/)
 
 This repository contains a **production-ready Playwright-based E2E framework** for Grafana. It focuses on **front-end and back-end integration testing** using Playwright’s native BDD-style syntax, providing robust, maintainable, and version-forward-compatible test coverage.
+
+
+---
+
+## Test Reports Tracing Display
+
+<img width="1920" height="1036" alt="Screenshot 2025-12-26 at 19 40 50" src="https://github.com/user-attachments/assets/59cd70d9-76ee-4975-8d38-21ae23cedbf2" />
+
+
+<img width="1920" height="797" alt="Screenshot 2025-12-26 at 19 42 55" src="https://github.com/user-attachments/assets/5cf3352c-d021-4899-b4a1-4c2d5185bed5" />
+
 
 ---
 
