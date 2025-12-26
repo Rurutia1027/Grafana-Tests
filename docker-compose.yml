@@ -10,11 +10,11 @@ services:
     volumes:
       - ./conf/custom.ini:/etc/grafana/grafana.ini:ro
     restart: unless-stopped
-    deploy:  
-      resources:
-        limits:
-          cpus: '6.0'
-          memory: 12G
-        reservations:
-          cpus: '4.0'
-          memory: 8G
+    # deploy:  
+    #   resources:
+    #     limits:
+    #       cpus: '6.0'
+    #       memory: 12G
+    #     reservations:
+    #       cpus: '4.0'
+    #       memory: 8G
