@@ -7,14 +7,21 @@ This repository contains a **production-ready Playwright-based E2E framework** f
 
 ---
 
-## Test Reports Tracing Display
+## Test Reports 
 
-<img width="1920" height="1036" alt="Screenshot 2025-12-26 at 19 40 50" src="https://github.com/user-attachments/assets/59cd70d9-76ee-4975-8d38-21ae23cedbf2" />
+- All Test Cases Display
 
+<img width="1502" height="1021" alt="Screenshot 2025-12-26 at 19 44 07" src="https://github.com/user-attachments/assets/51cc4b5a-3f99-4d60-bf6a-d66732bb405a" />
 
+- Tracing & Screenshots
+  
 <img width="1920" height="797" alt="Screenshot 2025-12-26 at 19 42 55" src="https://github.com/user-attachments/assets/5cf3352c-d021-4899-b4a1-4c2d5185bed5" />
 
+- Test Case Execution Tracing & Browser Request Context Details  
+  
+<img width="1920" height="1036" alt="Screenshot 2025-12-26 at 19 40 50" src="https://github.com/user-attachments/assets/59cd70d9-76ee-4975-8d38-21ae23cedbf2" />
 
+ 
 ---
 
 ## Features
