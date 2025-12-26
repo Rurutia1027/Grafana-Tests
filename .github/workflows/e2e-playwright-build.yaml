@@ -3,6 +3,8 @@ name: Grafana Playwright E2E
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -11,7 +13,7 @@ permissions:
   id-token: write
 
 jobs:
-  e2e:
+  Grafana-E2E-Playwright:
     runs-on: ubuntu-latest
 
     steps:
@@ -52,15 +54,3 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: playwright-report
-
-  deploy:
-    needs: e2e
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

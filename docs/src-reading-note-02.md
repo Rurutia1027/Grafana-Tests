@@ -1,0 +1,6 @@
+# Grafana Selectors and Playwright Usage 
+Grafana selectors are carefully designed abstractions that wrap frontend components and pages, enabling reliable and maintainable automation. The TypeScript source (`public/app/plugins/...`) defines the actual components and plugin logic. These sources are compiled into `dist` JS files, which provide the runtime behavior, while `index.d.ts` exposes all classes, functions, and types for import and type safely. 
+
+By using selectors, Playwright tests can interact with components in a consistent way without hardcoding DOM queries. This improves **test reliability**, **readability**, and **maintainability**, and allows tester and frontend developers to collaborate on a shared interface. Best practice is to always use the provided selectors and fixtures rather than raw page queries, ensuring that tests remain robust against UI changes. 
+
+**In short**: selectors provide a stable, reusable layer between Playwright tests and frontend components, combining strong typing (`index.d.ts`) with executable logic (`dist` JS), making frontend automation both effective and maintainable. 
