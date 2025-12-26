@@ -5,10 +5,16 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     ports:
       - "3000:3000"
     volumes:
       - ./conf/custom.ini:/etc/grafana/grafana.ini:ro
-      - ./conf/provisioning:/etc/grafana/provisioning:ro
     restart: unless-stopped
+    # deploy:  
+    #   resources:
+    #     limits:
+    #       cpus: '6.0'
+    #       memory: 12G
+    #     reservations:
+    #       cpus: '4.0'
+    #       memory: 8G
