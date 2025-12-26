@@ -6,10 +6,9 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-extensionstest-app,grafana-e2etest-datasource,grafana-e2etest-panel,alertlist-panel
     ports:
       - "3000:3000"
     volumes:
       - ./conf/custom.ini:/etc/grafana/grafana.ini:ro
-      - ./plugins:/var/lib/grafana/plugins
+      - ./conf/provisioning:/etc/grafana/provisioning:ro
     restart: unless-stopped
