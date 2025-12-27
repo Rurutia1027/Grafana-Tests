@@ -4,3 +4,61 @@ playwright
 playwright-report
 test-results
 .env
+
+# =====================
+# Node.js
+# =====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =====================
+# TypeScript
+# =====================
+dist/
+*.tsbuildinfo
+
+# =====================
+# Playwright
+# =====================
+test-results/
+playwright-report/
+blob-report/
+.trace/
+playwright.config.js
+playwright.config.js.map
+
+# =====================
+# Environment files
+# =====================
+a
+node_modules
+playwright
+playwright-report
+test-results
+.env
+.env.local
+.env.*.local
+
+# =====================
+# OS / Editor
+# =====================
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# =====================
+# Temporary / Generated
+# =====================
+coverage/
+*.log
+
+playwright/test-results/
+playwright/.auth/
+playwright/**/*.png
+playwright/**/*.zip
+
+plugins/*
+
