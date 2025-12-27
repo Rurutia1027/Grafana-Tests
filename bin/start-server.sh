@@ -16,13 +16,13 @@ PORT=${PORT:-3000}
 # -------------------------
 function cleanup() {
     echo "Stopping any existing Grafana containers..."
-    docker-compose -f "$DOCKER_COMPOSE_FILE" stop "$GRAFANA_SERVICE_NAME" || true
-    docker-compose -f "$DOCKER_COMPOSE_FILE" rm -f "$GRAFANA_SERVICE_NAME" || true
+    docker compose -f "$DOCKER_COMPOSE_FILE" stop "$GRAFANA_SERVICE_NAME" || true
+    docker compose -f "$DOCKER_COMPOSE_FILE" rm -f "$GRAFANA_SERVICE_NAME" || true
 }
 
 function start_grafana() {
     echo "Starting Grafana container with plugins..."
-    docker-compose -f "$DOCKER_COMPOSE_FILE" up -d "$GRAFANA_SERVICE_NAME"
+    docker compose -f "$DOCKER_COMPOSE_FILE" up -d "$GRAFANA_SERVICE_NAME"
 }
 
 # -------------------------
