@@ -11,6 +11,7 @@ services:
     volumes:
       - ./conf/custom.ini:/etc/grafana/grafana.ini:ro
       - ./src/test-plugins:/var/lib/grafana/plugins:ro
+      - ./conf/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml:ro
     restart: unless-stopped
     # deploy:  
     #   resources:
