@@ -31,15 +31,9 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Start Grafana (Docker)
-        run: docker compose up -d
-
-      - name: Wait for Grafana
         run: |
-          for i in {1..30}; do
-            curl -s http://localhost:3000 && exit 0
-            sleep 2
-          done
-          echo "Grafana not ready" && exit 1
+          chmod 777 bin/start-server.sh
+          bash bin/start-server.sh 
 
       - name: Run Playwright tests
         env:

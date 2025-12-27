@@ -1,4 +1,4 @@
-import { defineConfig, devices, PlaywrightTestConfig } from "@playwright/test";
+import { defineConfig, devices, PlaywrightTestConfig, Project } from "@playwright/test";
 import path, { dirname } from 'path'; 
 import { PluginOptions } from "@grafana/plugin-e2e";
 

@@ -5,10 +5,12 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=frontend-sandbox-panel-test,frontend-sandbox-datasource-test
     ports:
       - "3000:3000"
     volumes:
       - ./conf/custom.ini:/etc/grafana/grafana.ini:ro
+      - ./src/test-plugins:/var/lib/grafana/plugins:ro
     restart: unless-stopped
     # deploy:  
     #   resources:
