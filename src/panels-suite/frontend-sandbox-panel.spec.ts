@@ -15,6 +15,11 @@ test.beforeAll(async ({ request }) => {
   });
 });
 
+// test('verify imported dashboard exists', async ({ page }) => {
+//   await page.goto('/d/c46b2460-16b7-42a5-82d1-b07fbf431950');
+//   await expect(page.locator('text=Sandbox Panel Test')).toBeVisible();
+// });
+
 test.describe('Panels test: Panel sandbox',
     {
         tag: ['@panels'], 
@@ -28,7 +33,7 @@ test.describe('Panels test: Panel sandbox',
                 await page.reload(); 
             }); 
 
-            test.skip('Add iframes to body', async ({ page, gotoDashboardPage }) => {
+            test('Add iframes to body', async ({ page, gotoDashboardPage }) => {
                 await gotoDashboardPage({
                     uid: DASHBOARD_ID
                 }); 
