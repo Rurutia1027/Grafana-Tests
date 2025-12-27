@@ -35,7 +35,7 @@ jobs:
       - name: Start Grafana (Docker)
         run: |
           chmod 777 bin/start-server.sh
-          sh bin/start-server.sh
+          bash bin/start-server.sh
 
       - name: Run Playwright tests
         env:
